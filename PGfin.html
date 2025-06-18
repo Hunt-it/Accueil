@@ -25,7 +25,35 @@
       <li><a href="apropos.html">À propos</a></li>
     </ul>
   </nav>
-
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      const dropdownToggle = document.getElementById("dropdown-toggle");
+      const dropdownMenu = document.getElementById("dropdown-menu");
+    
+      // ouvrir/fermer le menu principal
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+    
+      // ouvrir/fermer le sous-menu uniquement sur mobile
+      dropdownToggle.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+  
+      // referme tous les autres menus si besoin
+      document.querySelectorAll(".dropdown-menu").forEach(menu => {
+        if (menu !== dropdownMenu) menu.classList.remove("active");
+      });
+  
+      // toggle affichage du menu "Parcours"
+      dropdownMenu.classList.toggle("active");
+    }
+    });
+  
+    });
+    </script>
   <div class="image-container">
     <img src="titre.png" alt="Gothic in paris" class="image-gothique">
     <img src="05.png" alt="Gothic in paris" class="image-gothique">
