@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=""utf-8>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Le Gothique</title>
+        <link rel="stylesheet" href = "style_gothique.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="nav-title"><a href="index.html">Hunt it</a></div>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="regles.html">Règles</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="dropdown-toggle">Parcours</a>
+                <ul class="dropdown-menu" id="dropdown-menu">
+                  <li><a href="PG0menu.html">Gothique</a></li>
+                  <li><a href="louislegrand.html">Magnum Secretum</a></li>
+                  <li><a href="ErreurSoon.html">Autres</a></li>
+                </ul>
+              </li>
+              <li><a href="apropos.html">À propos</a></li>
+            </ul>
+          </nav>
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const menuToggle = document.getElementById("menu-toggle");
+              const navLinks = document.getElementById("nav-links");
+              const dropdownToggle = document.getElementById("dropdown-toggle");
+              const dropdownMenu = document.getElementById("dropdown-menu");
+            
+              // ouvrir/fermer le menu principal
+              menuToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+              });
+            
+              // ouvrir/fermer le sous-menu uniquement sur mobile
+              dropdownToggle.addEventListener("click", (e) => {
+            if (window.innerWidth <= 768) {
+              e.preventDefault();
+          
+              // referme tous les autres menus si besoin
+              document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                if (menu !== dropdownMenu) menu.classList.remove("active");
+              });
+          
+              // toggle affichage du menu "Parcours"
+              dropdownMenu.classList.toggle("active");
+            }
+            });
+          
+            });
+            </script>
+
+            
+<div class="image-container">
+    <img src="titreLLG.png" alt="Gothic in paris" class="image-gothique"> </div>
+
+   
+<div class="main-content">
+
+    <div class="info-boxes">
+        <div class="info-box">
+            <p class="info-title">Difficulté</p>
+            <div class="difficulty-circles">
+                <span class="circle filled"></span>
+                <span class="circle filled"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+                <span class="circle"></span>
+            </div>
+        </div>
+        <div class="info-box">
+            <p class="info-title">Temps</p>
+            <p class="info-data">25min</p>
+        </div>
+        <div class="info-box">
+            <p class="info-title">Distance</p>
+            <p class="info-data">500m</p>
+        </div>
+        <div class="info-box">
+            <p class="info-title">Lieu</p>
+            <p class="info-data">1</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <p>Bienvenue au lycée Louis-le-Grand ! Ce lycée, reconnu pour son excellence, a été témoin de nombreuses histoires, de secrets et de mystères qui se cachent dans chaque couloir et chaque salle du bâtiment…</p>
+
+        <p>Que vous soyez professeur, lycéen ou étudiant, vous allez de toutes manières redécouvrir cet établissement qui, le temps de ce parcours, va devenir le théâtre d’une quête que vous n’êtes pas prêts d’oublier. </p>
+
+        <p>En effet, une société secrète semble tirer les ficelles dans l’ombre depuis des siècles. Votre mission: Entrer dans cette organisation pour percer ses mystères. Êtes-vous prêts ? Ce parcours n’attend que vous.</p>
+
+      </div>
+        <div class="button-wrapper">
+          <a href="LLG1lettre.html" class="start-button">C'est parti !</a></button>
+        </div>
+   

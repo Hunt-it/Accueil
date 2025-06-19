@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wordle – Molière</title>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+  
+  :root{
+    --cell:      clamp(50px, 18vw, 75px);  /* larg./haut. d’une case              */
+    --cell-font: clamp(1.4rem, 6vw, 2.2rem); /* taille de la lettre               */
+    --input-w:   clamp(240px, 70vw, 380px);  /* largeur du champ de saisie         */
+  }
+
+  /* ---------- Mise en page générale ---------- */
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    font-family:'Poppins',sans-serif;
+    background:#121213;
+    color:#d7dadc;
+    text-align:center;
+    padding:20px;
+  }
+
+  h2{color:#fff;margin-bottom:6px;}
+
+  p{
+    color:#d2d2d2;
+    text-align:left;
+    margin:0 0 14px 50px;
+  }
+
+  /* ---------- Grille Wordle ---------- */
+  .board{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:calc(var(--cell)*7 + 6*5px);   /* 7 cases + 6 inter-espaces */
+    margin:30px auto;
+  }
+
+  .row{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+  }
+
+  .cell{
+    width:var(--cell);
+    height:var(--cell);
+    font-size:var(--cell-font);
+    border:2px solid #3a3a3c;
+    background:#121213;
+    color:#fff;
+    font-weight:bold;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background-color .3s ease, transform .25s ease;
+  }
+
+  .correct{background:#538d4e!important;border-color:#538d4e!important;}
+  .present{background:#b59f3b!important;border-color:#b59f3b!important;}
+  .absent {background:#3a3a3c!important;border-color:#3a3a3c!important;}
+
+  /* ---------- Champ de saisie & boutons ---------- */
+  input[type="text"]{
+    width:var(--input-w);
+    font-size:1.2em;
+    padding:10px;
+    margin-top:20px;
+    text-align:center;
+    border:none;
+    border-radius:5px;
+    outline:none;
+  }
+
+  button{
+    font-family:'Poppins',sans-serif;
+    font-weight:bold;
+    padding:10px 20px;
+    font-size:1em;
+    background:#538d4e;
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    margin-top:25px;
+    cursor:pointer;  
+    text-align:'center';
+  }
+  
+  #wordle-feedback{
+    margin-top:15px;
+    font-weight:bold;
+    color:#f6f7f8;
+  }
+
+  #continue-button{
+    font-family:'Poppins',sans-serif;
+    display:flex;        
+    margin:0 auto;
+    padding:12px 24px;
+    font-size:1em;
+    font-weight:bold;
+    color:#fff;
+    background:#6d6d6d;
+    border:none;
+    border-radius:30px;
+    text-decoration:none;
+    text-align:'center';
+  }
+
+  .next-button{
+    font-family:'Poppins',sans-serif;
+    display:inline-block;        
+    margin:0 auto;
+    padding:10px 20px;
+    font-size:1em;
+    font-weight:bold;
+    color:#fff;
+    background:#6d6d6d;
+    border:none;
+    border-radius:30px;
+    text-decoration:none;
+    text-align:'center';
+
+  }
+
+  
+
+  </style>
+</head>
+
+<body>
+  <h2>Wordle – devinez le mot mystère</h2><br>
+  <p>Rentrez <strong>7 lettres</strong>.<br>
+     Si la lettre est <span style="color:#538d4e;">verte</span>, elle est bien placée.<br>
+     Si la lettre est <span style="color:#b59f3b;">jaune</span>, elle est dans le mot mais mal placée.<br>
+     Si la lettre est <span style="color:#6d6d6d;">grise</span>, elle n’est pas dans le mot.<br><br>
+     Attention, vous n'avez que 6 essais.</p>
+
+  <div id="wordle-board" class="board"></div>
+
+  <input type="text" id="wordle-input" placeholder="Tape ton mot ici…">
+  <br>
+  <button onclick="checkGuess()">Valider</button>
+
+  <p id="wordle-feedback"></p>
+
+  <div id="next-button" style="display:none;margin-top:30px;text-align:center;">
+    <a href="LLG2arbres.html" id="continue-button">Je suis Cour Molière</a>
+  </div>
+
+  <script>
+  /* ---------- Logique Wordle ---------- */
+  const secret   = "moliere";   // mot à deviner (minuscule)
+  const maxTries = 6;
+  let   tries    = 0;
+
+  document.getElementById("wordle-input")
+          .setAttribute("maxlength", secret.length);
+
+  function createRow(guess){
+    const row        = document.createElement("div");
+    row.className    = "row";
+    const secretArr  = secret.split("");
+    const guessArr   = guess.split("");
+    const result     = Array(secret.length).fill("absent");
+    const secretUsed = Array(secret.length).fill(false);
+
+    /* 1ʳᵉ passe : lettres correctes */
+    for(let i=0;i<secret.length;i++){
+      if(guessArr[i]===secretArr[i]){
+        result[i]="correct";
+        secretUsed[i]=true;
+      }
+    }
+    /* 2ᵉ passe : lettres présentes mal placées */
+    for(let i=0;i<secret.length;i++){
+      if(result[i]!=="correct"){
+        for(let j=0;j<secret.length;j++){
+          if(!secretUsed[j] && guessArr[i]===secretArr[j]){
+            result[i]="present";
+            secretUsed[j]=true;
+            break;
+          }
+        }
+      }
+    }
+    /* Création des cellules */
+    for(let i=0;i<secret.length;i++){
+      const cell       = document.createElement("div");
+      cell.className   = "cell "+result[i];
+      cell.textContent = guess[i] ? guess[i].toUpperCase() : "";
+      row.appendChild(cell);
+    }
+    return row;
+  }
+
+  function checkGuess(){
+    const input = document.getElementById("wordle-input");
+    const guess = input.value.toLowerCase().trim();
+
+    if(guess.length!==secret.length){
+      document.getElementById("wordle-feedback").textContent =
+        "Le mot doit contenir exactement "+secret.length+" lettres.";
+      return;
+    }
+    if(tries>=maxTries) return;
+
+    const board=document.getElementById("wordle-board");
+    board.appendChild(createRow(guess));
+    tries++;
+
+    if(guess===secret){
+      document.getElementById("wordle-feedback").textContent =
+        "La cour Molière ! Voilà votre première destination. Allez-y sans tarder.";
+      input.disabled=true;
+      document.getElementById("next-button").style.display="flex";
+    }else if(tries===maxTries){
+      document.getElementById("wordle-feedback").textContent =
+        "Tu as épuisé tes essais ! Le mot était MOLIÈRE." <br> "La cour Molière ! Voilà votre première destination. Allez-y sans tarder.";
+      input.disabled=true;
+      document.getElementById("next-button").style.display="block";
+    }else{
+      document.getElementById("wordle-feedback").textContent =
+        "Ce n’est pas le bon mot. Réessaie !";
+      input.value="";
+      input.focus();
+    }
+  }
+  </script>
+</body>
+</html>

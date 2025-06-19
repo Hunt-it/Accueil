@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Gothique</title>
+    <link rel="stylesheet" href="style_gothique.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-title"><a href="index.html">Hunt it</a></div>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="regles.html">Règles</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="dropdown-toggle">Parcours</a>
+                <ul class="dropdown-menu" id="dropdown-menu">
+                    <li><a href="PG0menu.html">Gothique</a></li>
+                    <li><a href="louislegrand.html">Magnum Secretum</a></li>
+                    <li><a href="ErreurSoon.html">Autres</a></li>
+                </ul>
+            </li>
+            <li><a href="apropos.html">À propos</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const menuToggle = document.getElementById("menu-toggle");
+            const navLinks = document.getElementById("nav-links");
+            const dropdownToggle = document.getElementById("dropdown-toggle");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+
+            menuToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+
+            dropdownToggle.addEventListener("click", (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+
+                    document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                        if (menu !== dropdownMenu) menu.classList.remove("active");
+                    });
+
+                    dropdownMenu.classList.toggle("active");
+                }
+            });
+        });
+    </script>
+
+    <script>
+        let essais = 0;
+
+        function verifierDates() {
+            const input = document.querySelector('.date-input');
+            const valeur = input.value.trim();
+            const message = document.getElementById('message-resultat');
+            const bouton = document.getElementById('bouton-continu');
+
+            essais++;
+
+            if (valeur === "9") {
+                message.textContent = "Bravo ! Une cape vient de disparaître dans les escaliers de la cour… Vite, suivez-la !";
+                message.style.color = "darkgreen";
+                bouton.style.display = "block";
+            } else {
+                message.textContent = "Ce n’est pas le bon numéro...";
+                message.style.color = "#8b0000";
+                bouton.style.display = "none";
+            }
+        }
+    </script>
+
+    <div class="image-container">
+        <img src="titreLLG.png" alt="Titre gothique" class="image-gothique">
+        <img src="02LLG.png" alt="Vue de l'entrée" class="image-gothique">
+        <img src="planCM.png" alt="Plan avec points clés" class="image-gothique">
+    </div>
+
+    <div class="main-content">
+        Vous êtes aussi malin que nous le pensions… Mais l’épreuve qui suit va peut-être vous décourager. Voilà une carte et des points clés, servez-vous en pour retrouver ce symbole exact.
+    </div>
+
+    <div class="image-container">
+        <img src="Xarbre.png" alt="Symbole mystérieux à retrouver" class="image-gothique">
+    </div>
+
+    <div class="main-content">
+        Une fois trouvé, mettez le numéro du point clé correspondant. Utilisez tous les indices disponibles et surtout ne vous perdez pas, vous n’avez pas autant de temps que vous le pensez…
+    </div>
+
+    <div class="bloc-mot-magique">
+        <div class="date-checker">
+            <p class="date-title">Entrez le bon numéro.</p>
+            <div class="date-inputs">
+                <input type="number" min="1" max="99" class="date-input" placeholder="??" aria-label="Numéro du point clé">
+            </div>
+            <button class="validate-button" onclick="verifierDates()">Soumettre</button>
+            <p id="message-resultat" class="date-result"></p>
+
+            <div class="continue-wrapper" id="bouton-continu" style="display:none;">
+                <a href="LLG3devise.html" class="continue-button">Continuer</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+

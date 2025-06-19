@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=""utf-8>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Le Gothique</title>
+        <link rel="stylesheet" href = "style_gothique.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="nav-title"><a href="index.html">Hunt it</a></div>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="regles.html">Règles</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="dropdown-toggle">Parcours</a>
+                <ul class="dropdown-menu" id="dropdown-menu">
+                  <li><a href="PG0menu.html">Gothique</a></li>
+                  <li><a href="louislegrand.html">Magnum Secretum</a></li>
+                  <li><a href="ErreurSoon.html">Autres</a></li>
+                </ul>
+              </li>
+              <li><a href="apropos.html">À propos</a></li>
+            </ul>
+          </nav>
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const menuToggle = document.getElementById("menu-toggle");
+              const navLinks = document.getElementById("nav-links");
+              const dropdownToggle = document.getElementById("dropdown-toggle");
+              const dropdownMenu = document.getElementById("dropdown-menu");
+            
+              // ouvrir/fermer le menu principal
+              menuToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+              });
+            
+              // ouvrir/fermer le sous-menu uniquement sur mobile
+              dropdownToggle.addEventListener("click", (e) => {
+            if (window.innerWidth <= 768) {
+              e.preventDefault();
+          
+              // referme tous les autres menus si besoin
+              document.querySelectorAll(".dropdown-menu").forEach(menu => {
+                if (menu !== dropdownMenu) menu.classList.remove("active");
+              });
+          
+              // toggle affichage du menu "Parcours"
+              dropdownMenu.classList.toggle("active");
+            }
+            });
+          
+            });
+            </script>
+
+            <script>
+              let essais = 0;
+      
+              function verifierDates() {
+                  const input = document.querySelector('.date-input');
+                  const valeur = input.value.trim().toUpperCase();
+                  const message = document.getElementById('message-resultat');
+                  const bouton = document.getElementById('bouton-continu');
+      
+                  essais++;
+      
+                  if (valeur === "1678") {
+                      message.textContent = "Bravo ! Vous pouvez continuer.";
+                      message.style.color = "darkgreen";
+                      bouton.style.display = "block";
+                  } else {
+                      message.textContent = "Ce n’est pas la bonne date...";
+                      message.style.color = "#8b0000";
+                      bouton.style.display = "none";
+                  }
+              }
+          </script>
+
+
+            <div class="image-container">
+                <img src="titreLLG.png" alt="Titre" class="image-gothique">
+                <img src="03LLG.png" alt="01" class="image-gothique">
+            </div>
+            <div class="main-content">
+              <p>Quelques secondes plus tard, vous entendez un bruit derrière vous. Un homme semble s’enfuir dans les couloirs. Sur le sol, un message est apparu. </p>
+            </div>
+            <div class="image-container">
+              <img src="Note1.png" alt="Titre" class="image-gothique">
+              <img src="plaque.png" alt="Titre" class="marge2">
+          </div>
+
+          <div class="bloc-mot-magique">
+            <div class="date-checker">
+                <p class="date-title">Entrez la bonne date</p>
+                <div class="date-inputs">
+                    <input type="number" min="1" max="3000" class="date-input" placeholder="xxxx" aria-label="Numéro du point clé">
+                </div>
+                <button class="validate-button" onclick="verifierDates()">Soumettre</button>
+                <p id="message-resultat" class="date-result"></p>
+
+                <div class="continue-wrapper" id="bouton-continu" style="display:none;">
+                  <a href="LLG4rebus.html" class="continue-button">Continuer</a>
+              </div>
+
+    </body>
+</html>
+
