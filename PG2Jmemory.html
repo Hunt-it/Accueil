@@ -27,12 +27,19 @@ h2 {
   padding: 10px 16px;
   background-color: #828282;
   color: white;
-  border-radius: 8px;
+  border-radius: 35px;
   text-decoration: none;
   font-weight: bold;
   font-size: 1em;
   text-align: center;
   white-space: nowrap;
+}
+
+
+.text-end {
+  text-align: left;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .memory-grid {
@@ -101,13 +108,15 @@ h2 {
 </style>
 
 <body>
-  <h2>Memory : Qui repose ici ?</h2>
-  <p>Sélectionne les paires des défunts qui occupent le cimetière Montparnasse.</p>
+  <h2>Memory - Qui repose ici ?</h2>
+  <p>Sélectionne les paires des défunts qui reposent au Cimetière du Montparnasse.</p>
   <div id="memory-board" class="memory-grid"></div>
-  <div id="nathan" style="display: none;">Une ombre au loin s'enfuit en dehors du cimetière ! Vous entendez les cloches de Notre-Dame sonner… <br><br>C' est sûrement la prochaine destination du Vampire. Vous pouvez quitter le cimetière, bravo! Rendez-vous devant la cathédrale pour la suite de l' intrigue. Sur votre chemin n'hésitez pas à regarder autour de vous! Paris regorge de mystères et le vampire y a peut-être laissé des indices… Si vous cherchez des lieux gothiques, jetez un œil au Musée de Cluny.</div>
+  <div id="text-end" style="display: none;">Une ombre au loin s'enfuit en dehors du cimetière ! Vous entendez les cloches de Notre-Dame sonner… <br><br>C' est sûrement la prochaine destination du Vampire. Vous pouvez quitter le cimetière, bravo! Rendez-vous devant la cathédrale pour la suite de l' intrigue. Sur votre chemin n'hésitez pas à regarder autour de vous! Paris regorge de mystères et le vampire y a peut-être laissé des indices… Si vous cherchez des lieux gothiques, jetez un œil au Musée de Cluny.</div>
   <div id="next-button" style="display: none; margin-top: 30px; text-align: center;">
     <a href="PG3Dnotredame.html" class="button">Continuer</a>
   </div>
+  <audio id="victory-sound" src="son_cloches.mp3" preload="auto"></audio>
+
 
   <script>
     const figures = [
@@ -119,6 +128,7 @@ h2 {
     ];
 
     const board = document.getElementById("memory-board");
+    const victorySound = document.getElementById("victory-sound");
     let flippedCards = [];
     let matchedIndices = [];
 
@@ -155,8 +165,10 @@ h2 {
             matchedIndices.push(first.index, second.index);
             flippedCards = [];
             if (matchedIndices.length === cards.length) {
+              victorySound.currentTime = 0; // remet au début au cas où
+              victorySound.play();
               document.getElementById("next-button").style.display = "inline-block";
-              document.getElementById("nathan").style.display = "inline-block";
+              document.getElementById("text-end").style.display = "inline-block";
             }
           } else {
             setTimeout(() => {

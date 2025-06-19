@@ -83,6 +83,15 @@ b {
     font-weight: bold;
 }
 
+.title_image {
+  margin: 20px auto;               /* ✅ centre horizontalement */
+  display: block;                  /* ✅ nécessaire pour margin auto sur image */
+  width: 90%;
+  max-width: 600px;                /* ✅ limite la taille max */
+  padding: 0;
+}
+
+
 /*naverbar*/
 
 .navbar {
@@ -305,8 +314,12 @@ b {
   transform: scale(0.97);
 }
 
+.combat{
+  margin-top: 40px;
+}
+
 .btn1 {
-  background-image: url('https://image.lexica.art/full_webp/05a8e513-cb9f-4690-842e-48717c91995c');
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url('garg.png');
   background-size: cover;
   background-position: center;
   font-weight: 500;
@@ -319,9 +332,8 @@ b {
   border-radius: 8px;
   cursor: pointer;
 }
-
 .btn1:hover {
-  background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('https://image.lexica.art/full_webp/05a8e513-cb9f-4690-842e-48717c91995c');
+  background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('garg.png');
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
@@ -329,7 +341,7 @@ b {
 }
 
 .btn2 {
-  background-image: url('https://www.louislegrand.fr/wp-content/uploads/2019/08/D14D8041-2048x1366.jpg');
+  background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url('https://www.louislegrand.fr/wp-content/uploads/2019/08/D14D8041-2048x1366.jpg');
   background-size: cover;
   background-position: center;
   font-weight: 500;
@@ -344,7 +356,7 @@ b {
 }
 
 .btn2:hover {
-  background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url('https://www.louislegrand.fr/wp-content/uploads/2019/08/D14D8041-2048x1366.jpg');
+  background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('https://www.louislegrand.fr/wp-content/uploads/2019/08/D14D8041-2048x1366.jpg');
   background-size: cover;
   background-position: center;
   transform: scale(1.02);
@@ -352,7 +364,7 @@ b {
 }
 
 .btn3 {
-  background-image: url('https://www.terre.tv/wp-content/uploads/2022/04/sorbonne-paris.jpg');
+  background-image: url('soon.png');
   background-size: cover;
   background-position: center;
   font-weight: 500;
@@ -404,13 +416,21 @@ b {
   }
 }
 
+.x-arbre {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
 
 .contact {
   font-weight: 500;
   text-decoration: none;
   font-size: 1.2em;
   color: white;
-  background-color: #ff9100;
+  background-color: #eea60b;
   padding: 12px 20px;
   border: none;
   border-radius: 30px;
@@ -481,17 +501,22 @@ b {
 
 @media (max-width: 768px) {
   .info-boxes {
+    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     gap: 16px;
+    padding: 0 10px;
   }
 
   .info-box {
-    width: calc(50% - 16px); /* deux par ligne avec l'espacement */
-    max-width: 180px;
+    flex: 0 0 48%; /* deux par ligne sans max-width bloquante */
+    max-width: none;
+    min-width: 160px;
+    box-sizing: border-box;
   }
 }
+
 
 
 .info-title {
@@ -549,7 +574,7 @@ b {
 
 .start-button {
     display: inline-block;
-    text-decoration: none; /* enlÃ¨ve le soulignement */
+    text-decoration: none; 
     background-color: #3b2d24;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
@@ -620,9 +645,6 @@ b {
     transform: scale(0.97);
   }
 
-.btn1 { background-image: url('https://image.lexica.art/full_webp/05a8e513-cb9f-4690-842e-48717c91995c'); }
-.btn2 { background-image: url('https://www.louislegrand.fr/wp-content/uploads/2019/08/D14D8041-2048x1366.jpg'); }
-.btn3 { background-image: url('soon.png'); }
 
 a.button {
     text-decoration: none;
@@ -786,7 +808,7 @@ a.button {
   
   .continue-button {
     display: inline-block;
-    text-decoration: none; /* enlÃ¨ve le soulignement */
+    text-decoration: none;
     background-color: #3b2d24;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
@@ -801,6 +823,7 @@ a.button {
         0 4px 12px rgba(0, 0, 0, 0.5),
         inset 0 2px 5px rgba(255, 255, 255, 0.4);
   }
+
   .continue-button:hover {
     background-color: #5c4333;
     transform: translateY(-2px);
@@ -926,3 +949,46 @@ a.button {
         0 4px 12px rgba(0, 0, 0, 0.5),
         inset 0 2px 5px rgba(255, 255, 255, 0.4);
 }
+
+@media (max-width: 768px) {
+  .info-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 10px;
+    gap: 12px;
+  }
+
+  .info-box {
+    flex: 0 0 45%;
+    max-width: 45%;
+    min-width: 140px;
+    margin: 0 auto;
+  }
+}
+
+img.marge2 {
+  display: block;
+  width: 100%;
+  max-width: 350px; /* ✅ Réduction ici */
+  height: auto;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+input.date-input {
+  width: 70px;
+  padding: 10px;
+  font-size: 1.1em;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#message-resultat,
+#message-secret-feedback,
+.date-title,
+.date-result {
+  font-family: 'Poppins', sans-serif;
+}
+

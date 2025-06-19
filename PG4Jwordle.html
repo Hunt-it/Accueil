@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- ① -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
   <title>Wordle - Opéra</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -10,7 +10,7 @@
 
 <style>
 
-  :root{                                    /* ② */
+  :root{                                    
   --cell: clamp(50px, 18vw, 75px);
   --cell-font: clamp(1.4rem, 6vw, 2.2rem);
   --input-w: clamp(240px, 70vw, 380px);
@@ -31,7 +31,9 @@
   }
   
   p {
-    color: #888;
+    color: #d2d2d2;
+    text-align: left;
+    margin-left: 50px;
   }
   
   .board {
@@ -91,13 +93,14 @@
   
   button {
     font-family: 'Poppins', sans-serif;
+    font-weight: bold;
     padding: 10px 20px;
     font-size: 1em;
     background-color: #538d4e;
     color: white;
     border: none;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 30px;
+    margin-top: 25px;
     cursor: pointer;
   }
   
@@ -117,15 +120,19 @@
   color: white;
   background-color: #6d6d6d;
   border: none;
-  border-radius: 12px;
+  border-radius: 30px;
   text-decoration: none;}
 
 
 </style>
 
 <body>
-  <h2>Devine le mot mystère</h2>
-  <p>Rentrez 5 lettres</p>
+  <h2>Wordle - devinez le mot mystère</h2>
+  <p>Rentrez 5 lettres.<br>
+    Si la lettre est <span style="color: #538d4e;">verte</span>, elle est bien placée dans le mot à trouver.<br>
+    Si la lettre est <span style="color: #b59f3b;">jaune</span>, elle est dans le mot mais mal placée.<br>
+    Si la lettre est <span style="color: #6d6d6d;">grise</span>, elle n’est pas dans le mot.
+    </p>
   <div id="wordle-board" class="board"></div>
   <input type="text" id="wordle-input" placeholder="Tape ton mot ici..." />
   <br><button onclick="checkGuess()">Valider</button>
@@ -157,7 +164,7 @@
         }
       }
 
-      // Deuxième passe : marquer les lettres présentes mais mal placées
+    
       for (let i = 0; i < secret.length; i++) {
         if (result[i] !== 'correct') {
           for (let j = 0; j < secret.length; j++) {
@@ -202,6 +209,7 @@
       } else if (tries === maxTries) {
         document.getElementById("wordle-feedback").textContent = "Tu as épuisé tes essais ! Le mot était OPERA, rendez-vous l'Opéra Garnier...";
         input.disabled = true;
+        document.getElementById("next-button").style.display = "block"; // 👈 affiche le bouton
       } else {
         document.getElementById("wordle-feedback").textContent = "Ce n’est pas le bon mot. Réessaie !";
         input.value = "";

@@ -4,11 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le Gothique</title>
-  <link rel="stylesheet" href="style_gothique.css" />
+
+  <!-- Feuilles de style existantes -->
+  <link rel="stylesheet" href="style_gothique.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  </head>
+
+  <!-- Style du bouton audio chic -->
+  <style>
+    /* ---------- bouton rond Play / Pause ---------- */
+    .audio-btn{
+      width:68px;height:68px;
+      display:flex; align-items:center;justify-content:center;
+      background:#d4af37;border:none;border-radius:50%;
+      box-shadow:0 4px 10px rgba(0,0,0,.35);
+      cursor:pointer;
+      transition:transform .15s,box-shadow .15s;
+      margin:1rem auto;
+    }
+    .audio-btn:hover  {transform:translateY(-2px);box-shadow:0 6px 12px rgba(0,0,0,.35);}
+    .audio-btn:active {transform:translateY( 0 );box-shadow:0 3px  6px rgba(0,0,0,.40);}
+
+    /* icônes SVG : on masque / affiche selon l’état */
+    .audio-btn svg{width:32px;height:32px;fill:#000;display:none;}
+    .audio-btn .play-icon {display:block;}                 /* état initial */
+    .audio-btn.is-playing .play-icon  {display:none;}
+    .audio-btn.is-playing .pause-icon {display:block;}
+
+    /* adaptation mobile */
+    @media(max-width:480px){
+      .audio-btn{width:60px;height:60px;}
+      .audio-btn svg{width:28px;height:28px;}
+    }
+  </style>
+</head>
 
 <body>
+
+  <!-- ===== Barre de navigation ===== -->
   <nav class="navbar">
     <div class="nav-title"><a href="index.html">Hunt it</a></div>
     <div class="menu-toggle" id="menu-toggle">&#9776;</div>
@@ -18,73 +50,108 @@
         <a href="#" class="dropdown-toggle" id="dropdown-toggle">Parcours</a>
         <ul class="dropdown-menu" id="dropdown-menu">
           <li><a href="PG0menu.html">Gothique</a></li>
-          <li><a href="louislegrand.html">Louis-le-Grand</a></li>
+          <li><a href="louislegrand.html">Magnum Secretum</a></li>
           <li><a href="ErreurSoon.html">Autres</a></li>
         </ul>
       </li>
       <li><a href="apropos.html">À propos</a></li>
     </ul>
   </nav>
-<script>
+
+  <!-- JS menu mobile -->
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const menuToggle = document.getElementById("menu-toggle");
-      const navLinks = document.getElementById("nav-links");
-      const dropdownToggle = document.getElementById("dropdown-toggle");
+      const menuToggle   = document.getElementById("menu-toggle");
+      const navLinks     = document.getElementById("nav-links");
+      const dropdownTgl  = document.getElementById("dropdown-toggle");
       const dropdownMenu = document.getElementById("dropdown-menu");
-    
-      // ouvrir/fermer le menu principal
+
       menuToggle.addEventListener("click", () => {
         navLinks.classList.toggle("active");
       });
-    
-      // ouvrir/fermer le sous-menu uniquement sur mobile
-      dropdownToggle.addEventListener("click", (e) => {
-    if (window.innerWidth <= 768) {
-      e.preventDefault();
-  
-      // referme tous les autres menus si besoin
-      document.querySelectorAll(".dropdown-menu").forEach(menu => {
-        if (menu !== dropdownMenu) menu.classList.remove("active");
+
+      dropdownTgl.addEventListener("click", e => {
+        if (window.innerWidth <= 768){
+          e.preventDefault();
+          document.querySelectorAll(".dropdown-menu").forEach(m => {
+            if (m !== dropdownMenu) m.classList.remove("active");
+          });
+          dropdownMenu.classList.toggle("active");
+        }
       });
-  
-      // toggle affichage du menu "Parcours"
-      dropdownMenu.classList.toggle("active");
-    }
     });
-  
-    });
-    </script>
+  </script>
+
+  <!-- ===== Bandeau d’images ===== -->
   <div class="image-container">
-    <img src="titre.png" alt="Gothic in paris" class="image-gothique">
-    <img src="05.png" alt="Gothic in paris" class="image-gothique">
-    <img src="Image_fin.png" alt="Gothic in paris" class="image-gothique">
+    <img src="titre.png"       alt="Titre"  class="image-gothique">
+    <img src="05.png"          alt="Photo"  class="image-gothique">
+    <img src="Image_fin.png"   alt="Photo"  class="image-gothique">
   </div>
+
+  <!-- ===== Tirade + bouton audio ===== -->
   <div class="titre_fin">
-    <h2>Le Vampire et le Fantôme sont à terre. Le comte Cenusa lance une derniere tirade : </h2>
+
+    <!-- Bouton audio -->
+    <button id="speechBtn" class="audio-btn" aria-label="Lire / Pause">
+      <!-- ▶︎ -->
+      <svg class="play-icon"  viewBox="0 0 60 60" aria-hidden="true">
+        <polygon points="24,18 44,30 24,42"/>
+      </svg>
+      <!-- ❚❚ -->
+      <svg class="pause-icon" viewBox="0 0 60 60" aria-hidden="true">
+        <rect x="20" y="18" width="8"  height="24"/>
+        <rect x="34" y="18" width="8"  height="24"/>
+      </svg>
+    </button>
+
+    <audio id="speech" src="speechdefin.mp3" preload="auto"></audio>
   </div>
+
+  <!-- ===== Illustration suivant la tirade ===== -->
+  <div class="image-container">
+    <img src="fin.png" alt="Gothic in paris" class="image-gothique">
+  </div>
+
+  <!-- ===== Texte de conclusion ===== -->
   <div class="main-content">
-    <img src="message-fin.png" alt="Gothic in paris" class="image-gothique">
+    <p>gent encore de secrets et d’histoires à découvrir. Vous pouvez aussi tenter d’autres parcours pour prolonger l’aventure. Merci d’avoir joué et d’avoir plongé avec nous dans cette quête sombre et mystérieuse.<br>
+       À bientôt pour de nouvelles énigmes… <b>si vous l’osez.</b>
+    </p>
   </div>
-    <div class="message_fin">
-    <p>Après ce dernier message, deux silhouettes sombres se dessinent au sommet de l’Opéra.</p>
-    <p>Le souffle du vampire balaie une dernière fois le ciel parisien. D’un battement d’ailes, le vampire et le fantôme s’envolent, disparaissant dans l’ombre.</p>
-    
-    <p>Vous avez réussi.<br>
-      La ville est sauve… pour l’instant.<br>
-      Bravo à vous, vous avez terminé la chasse !<br>
-      N’hésitez pas à explorer ces lieux en profondeur, ils regorgent de secrets et d’histoires encore à découvrir. Vous pouvez aussi tenter d’autres parcours pour prolonger l’aventure. Merci d’avoir joué et d’avoir plongé avec nous dans cette quête sombre et mystérieuse.<br>
-      À bientôt pour de nouvelles énigmes… si vous l’osez.
-      </p>
-    
-    </div>
-  </div>
+
+  <!-- ===== Boutons de fin ===== -->
   <div class="button-wrapper">
-  <a href="Certificat_Le_souffle_du_Vampire.pdf"
-     download
-     class="btn-download certificate">Télécharger votre certificat !</a>
-</div>
-<div class="button-wrapper">
-  <a href="index.html" class="certificate">Retour au menu principal</a></button>
-</div>
+    <a href="Certificat_Le_souffle_du_Vampire.pdf" download class="continue-button btn-download certificate">
+      Télécharger votre certificat
+    </a>
+  </div>
+
+  <div class="button-wrapper">
+    <a href="index.html" class="continue-button certificate">
+      Retour au menu principal
+    </a>
+  </div>
+
+  <!-- ===== Script Play / Pause ===== -->
+  <script>
+    const speech    = document.getElementById("speech");
+    const speechBtn = document.getElementById("speechBtn");
+
+    speechBtn.addEventListener("click", () => {
+      if (speech.paused){
+        speech.play();
+        speechBtn.classList.add("is-playing");
+      } else {
+        speech.pause();
+        speechBtn.classList.remove("is-playing");
+      }
+    });
+
+    speech.addEventListener("ended", () => {
+      speechBtn.classList.remove("is-playing");
+    });
+  </script>
+
 </body>
 </html>

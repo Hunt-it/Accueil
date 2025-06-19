@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gargouilles de Notre-Dame</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -58,10 +57,24 @@
       touch-action:manipulation;
     }
 
+    button {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: #828282;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1em;
+      text-align: center;
+      white-space: nowrap;
+      font-family:'Poppins',sans-serif;
+      font-weight:'bold';
+    }    
+
     .controls{margin:20px 0;}
     .controls button{
       margin:0 10px;
-      padding:10px 16px;
+      padding:10px 20px;
       font-size:1em;
       border:none;
       border-radius:6px;
@@ -69,6 +82,7 @@
       background:var(--accent);
       color:var(--fg);
       touch-action:manipulation;
+      border-radius: 35px;
     }
     .controls button:hover{background:#747474;}
 
@@ -82,34 +96,42 @@
       color:var(--fg);
       background:var(--accent);
       border:none;
-      border-radius:10px;
+      border-radius:35px;
       cursor:pointer;
       box-shadow:0 4px 6px rgba(0,0,0,.2);
       transition:background .3s ease;
     }
 
-    /* Ajustement micro-écran ≤ 480 px : images un peu moins hautes */
+
     @media(max-width:480px){
       body{padding:12px;}
       .image-tile img{max-height:140px;}
       .controls button{margin:4px;padding:8px 12px;font-size:.9em;}
     }
+
+
+    .image-tile.correct{
+    border:4px solid #9acd32;   
+    padding:6px;                
+}
+
   </style>
 </head>
 <body>
-  <h2>Retrouve les éléments gothiques de Notre-Dame</h2>
-  <p>Coche uniquement les 5 images représentant des éléments gothiques parmi celles proposées.</p>
+  <h2>Ouvrez l'oeil !</h2>
+  <p>Cochez les 5 images qui représentent des éléments gothiques de l'extérieur de Notre-Dame, attention il y a des pièges !
+  </p>
 
   <div id="image-grid" class="grid"></div>
 
   <div class="controls">
     <button onclick="verifySelection()">Valider</button>
-    <button onclick="revealAnswers()">Abandonner</button>
+    <button onclick="revealAnswers()">Solution</button>
     <button onclick="showHint()" id="hint-button" style="display:none;">💡 Indice</button>
   </div>
 
   <p id="feedback" class="feedback"></p>
-  <button id="next-button" onclick="location.href='PG3Dgargouille.html'">Continuer</button>
+  <button id="next-button" onclick="location.href='PG3Dgargouille.html'">Voir le message</button>
 
   <script>
     /* Images : mettez vos .png dans le même dossier */
@@ -153,6 +175,16 @@
       grid.appendChild(tile);
     });
 
+    function highlightCorrectTiles(){
+      /* applique la classe .correct aux bonnes images */
+      document.querySelectorAll(".image-tile").forEach((tile,i)=>{
+        if(statues[i].isGargoyle){
+          tile.classList.add("correct");
+        }
+      });
+    }
+
+
     function verifySelection(){
       const checkboxes = document.querySelectorAll("input[type=checkbox]");
       let success = true;
@@ -163,12 +195,13 @@
       });
 
       if(success){
-        feedback.textContent = "Bravo ! Tu as trouvé tous les bons éléments !";
+        feedback.textContent = "Bravo ! Tu as trouvé tous les bons éléments ! Une gargouille ouvre la gueule et laisse tomber un nouveau message.";
         feedback.style.color = "#2e7d32";
+        highlightCorrectTiles();
         nextBtn.style.display = "inline-block";
       }else{
         feedback.textContent = "Ce n’est pas tout à fait ça. Réessaie.";
-        feedback.style.color = "#c62828";
+        feedback.style.color = "#white";
         if(attemptCount >= maxAttemptsBeforeHint){
           hintBtn.style.display = "inline-block";
         }
@@ -180,8 +213,9 @@
         box.checked  = statues[i].isGargoyle;
         box.disabled = true;
       });
-      feedback.textContent = "Réponse affichée.";
-      feedback.style.color = "#666";
+      highlightCorrectTiles();
+      feedback.textContent = "Une gargouille ouvre la gueule et laisse tomber un nouveau message.";
+      feedback.style.color = "white";
       nextBtn.style.display = "inline-block";
     }
 
@@ -192,3 +226,4 @@
   </script>
 </body>
 </html>
+

@@ -79,9 +79,9 @@
   }
 
   .date-input {
-    width: 100% !important;        /* prendre toute la largeur dispo */
+    width: 100% !important;       
     max-width: none !important;    /* enlever toute limite max */
-    min-width: 280px;              /* taille mini confortable */
+    min-width: 280px;             
     box-sizing: border-box;        /* padding inclus dans la largeur */
   }
   .validate-button, #bouton-continu, #bouton-abandonner {
@@ -113,7 +113,7 @@ a.validate-button {
         <a href="#" class="dropdown-toggle" id="dropdown-toggle">Parcours</a>
         <ul class="dropdown-menu" id="dropdown-menu">
           <li><a href="PG0menu.html">Gothique</a></li>
-          <li><a href="louislegrand.html">Louis-le-Grand</a></li>
+          <li><a href="louislegrand.html">Magnum Secretum</a></li>
           <li><a href="ErreurSoon.html">Autres</a></li>
         </ul>
       </li>
@@ -126,23 +126,24 @@ a.validate-button {
     <img src="05.png" alt="Gothic in paris" class="image-gothique">
   </div>
 
-  <div class="main-content">
-    <h2>L'Opéra Garnier </h2>
+  
+    <h2 style="text-align: center;">Opéra Garnier</h2>
+   <div class="main-content">
     <p>Vous voici devant <b>l'Opéra Garnier</b>, le point d’orgue de notre histoire.</p>
     <p>Le Palais Garnier est l’un des opéras les plus célèbres au monde. Construit entre 1861 et 1875, il porte le nom de son architecte, Charles Garnier. Cet édifice est un chef-d’œuvre de l’architecture du Second Empire, <b>mêlant style baroque, néo-classique et Renaissance.</b></p>
     <p>Sa façade richement ornée, ses majestueux escaliers en marbre et son grand foyer somptueusement décoré témoignent de la splendeur de cette époque. La salle de spectacle, célèbre pour <b>son plafond peint par Marc Chagall</b>, accueille chaque année des représentations d’opéra et de ballet qui attirent un public international.</p>
     <p>Le Palais Garnier est aussi connu pour avoir inspiré <b>la célèbre légende du Fantôme de l’Opéra</b>, ce mystérieux personnage qui hanterait ses couloirs et a fasciné des générations entières. Ce monument emblématique incarne à la fois l’histoire, l’art et la vie culturelle parisienne depuis plus d’un siècle.</p>
-    <p>Sur un mur à côté, une affiche abîmée attire votre attention, la voici :</p> 
+    <p>Sur un mur à côté, une affiche abîmée attire votre attention...</p> 
     <div class="bloc-final">
       <img src="affiche.png" alt="affiche opéra" class="affiche-opera">
-      <p>Le Vampire a apparemment demandé de l’aide au <b>légendaire Fantôme de l’Opéra</b>. Mais certaines informations manquent à l’appel… <b>Observez les façades de l’Opéra</b> pour compléter les trous et assister au spectacle.</p>
+      <p>Le Vampire semble s'être associé au <b>légendaire Fantôme de l’Opéra</b>. Mais certaines informations manquent à l’appel… <b>Observez les façades de l’Opéra</b> pour compléter les trous et assister au spectacle.</p>
       <div class="date-checker">
         <p class="date-title">Entrez les noms pour lancer le spectacle :</p>
         <div class="date-inputs">
           <input type="text" maxlength="10" class="date-input" placeholder="">
           <input type="text" maxlength="10" class="date-input" placeholder="">
         </div>
-        <button class="validate-button" onclick="verifierDates()">Soumettre</button>
+        <button class="continue-button" onclick="verifierDates()">Soumettre</button>
         <p id="message-resultat" class="date-result"></p>
         <a href="PG5partition.html" id="bouton-continu" class="validate-button" style="display: none;">Continuer</a>
         <button id="bouton-abandonner" class="validate-button" style="display: none;" onclick="abandonner()">Abandonner</button>
